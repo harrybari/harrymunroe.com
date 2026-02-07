@@ -1,49 +1,334 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+const topics = [
+  { slug: "ai", label: "AI", desc: "decision-making, uncertainty, and human systems" },
+  { slug: "data", label: "Data", desc: "measurement, context, and trust" },
+  { slug: "quantum", label: "Quantum", desc: "new ways of reasoning about computation" },
+  { slug: "energy", label: "Energy", desc: "infrastructure, grids, and long timelines" },
+  { slug: "healthcare", label: "Healthcare", desc: "systems, equity, and evidence" },
+];
 ---
 
-<!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Harry Munroe</title>
+    <meta
+      name="description"
+      content="I explore how emerging technologies can help societies build a better future."
+    />
+  </head>
+
+  <body>
+    <main class="page">
+      <header class="hero">
+        <p class="kicker">Harry Munroe</p>
+        <h1>
+          I explore how emerging technologies can help societies build a better future.
+        </h1>
+        <p class="subhead">
+          I’m especially interested in how AI, energy systems, and computation intersect with public
+          institutions and human decision-making—without jargon, and without judgment.
+        </p>
+
+        <div class="heroLinks">
+          <a class="primary" href="/topics">Explore topics</a>
+          <a class="secondary" href="/writing">Read writing</a>
+          <a class="secondary" href="/about">About</a>
+        </div>
+      </header>
+
+      <section class="panel">
+        <h2>How I work</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Clarity over jargon</h3>
+            <p>I try to explain things at the level someone is actually asking—no performance.</p>
+          </div>
+          <div class="card">
+            <h3>Good questions first</h3>
+            <p>Progress often starts by making a messy problem discussable, not “solved.”</p>
+          </div>
+          <div class="card">
+            <h3>Optimism with rigor</h3>
+            <p>I’m hopeful about the future, and I’m serious about what it takes to build it well.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="row">
+          <h2>Explore by topic</h2>
+          <a class="smallLink" href="/topics">All topics →</a>
+        </div>
+
+        <div class="topics">
+          {topics.map((t) => (
+            <a class="topic" href={`/${t.slug}`}>
+              <div class="topicTop">
+                <span class="pill">{t.label}</span>
+                <span class="arrow">↗</span>
+              </div>
+              <p class="topicDesc">{t.desc}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section class="panel invite">
+        <h2>An invitation</h2>
+        <p>
+          If you’re curious about where technology is taking us—or you’re not sure what questions to
+          ask—you’re welcome here. I’m trying to write in a way that makes complex ideas feel
+          approachable and worth engaging.
+        </p>
+        <p class="fine">
+          Start with <a href="/ai">AI</a> or <a href="/energy">Energy</a>, or browse <a href="/writing">Writing</a>.
+        </p>
+      </section>
+
+      <footer class="footer">
+        <p>
+          <a href="mailto:you@domain.com">Email</a> · <a href="https://www.linkedin.com/">LinkedIn</a> ·
+          <a href="/rss.xml">RSS</a>
+        </p>
+      </footer>
+    </main>
+
+    <style>
+      :global(:root) {
+        --bg: #f6f7fb;
+        --panel: #ffffff;
+        --text: #121826;
+        --muted: #4b5563;
+        --border: rgba(17, 24, 39, 0.10);
+
+        /* Accent: cobalt-ish but not corporate */
+        --accent: #1e4ed8;
+        --accentHover: #163fae;
+
+        --radius: 18px;
+        --shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
+      }
+
+      :global(body) {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
+          "Segoe UI Emoji";
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .page {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 64px 20px 72px;
+      }
+
+      .hero {
+        padding: 18px 0 26px;
+      }
+
+      .kicker {
+        margin: 0 0 10px;
+        color: var(--muted);
+        font-weight: 550;
+        letter-spacing: 0.02em;
+      }
+
+      h1 {
+        margin: 0 0 14px;
+        font-size: clamp(34px, 5vw, 56px);
+        line-height: 1.04;
+        letter-spacing: -0.03em;
+        font-weight: 780;
+      }
+
+      .subhead {
+        margin: 0;
+        max-width: 70ch;
+        font-size: 18px;
+        line-height: 1.65;
+        color: var(--muted);
+      }
+
+      .heroLinks {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 22px;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+        text-underline-offset: 3px;
+      }
+      a:hover {
+        color: var(--accentHover);
+        text-decoration: underline;
+      }
+
+      .primary {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 10px 14px;
+        box-shadow: var(--shadow);
+        color: var(--text);
+        font-weight: 650;
+      }
+      .primary:hover {
+        text-decoration: none;
+        border-color: rgba(30, 78, 216, 0.35);
+      }
+
+      .secondary {
+        border-radius: 999px;
+        padding: 10px 12px;
+        border: 1px solid transparent;
+        color: var(--muted);
+        font-weight: 550;
+      }
+      .secondary:hover {
+        border-color: var(--border);
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .panel {
+        margin-top: 22px;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 22px 22px;
+        box-shadow: var(--shadow);
+      }
+
+      h2 {
+        margin: 0 0 12px;
+        font-size: 18px;
+        letter-spacing: -0.01em;
+        font-weight: 720;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 14px 14px;
+        background: rgba(246, 247, 251, 0.55);
+      }
+
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 14px;
+        font-weight: 720;
+        letter-spacing: -0.01em;
+      }
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 14px;
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+      }
+
+      .smallLink {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .topics {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+
+      .topic {
+        display: block;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 16px 16px;
+        background: rgba(255, 255, 255, 0.7);
+        transition: transform 120ms ease, border-color 120ms ease;
+      }
+      .topic:hover {
+        transform: translateY(-1px);
+        border-color: rgba(30, 78, 216, 0.35);
+        text-decoration: none;
+      }
+
+      .topicTop {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(30, 78, 216, 0.25);
+        background: rgba(30, 78, 216, 0.06);
+        color: var(--text);
+        font-weight: 650;
+        font-size: 13px;
+      }
+
+      .arrow {
+        color: rgba(30, 78, 216, 0.65);
+        font-weight: 650;
+      }
+
+      .topicDesc {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 14px;
+      }
+
+      .invite p {
+        margin: 0 0 10px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .fine {
+        font-size: 14px;
+      }
+
+      .footer {
+        margin-top: 26px;
+        padding-top: 18px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      @media (max-width: 860px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .topics {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </body>
 </html>
